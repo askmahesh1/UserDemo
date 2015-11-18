@@ -1,0 +1,67 @@
+<html ng-app="myApp" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>User List using Angular JS and User Microservice</title>
+<!-- Angular Material CSS now available via Google CDN; version 0.11.2 used here -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="user.js"></script>
+    <link rel="stylesheet" href="http://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.css">
+
+</head>
+
+<body>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <div class="md-title">User List (Using Angular JS, User Microservice with SpringBoot)</div>
+      </div>
+    </md-toolbar>
+    
+<md-content laout="column" flex>
+      <md-card ng-controller="UserDetailCtrl">
+        <md-data-table-toolbar ng-show="!selected.length">
+          <h2 class="md-title">Users</h2>
+        </md-data-table-toolbar>
+
+        <md-data-table-toolbar class="alternate" ng-show="selected.length">
+          <div>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</div>
+        </md-data-table-toolbar>
+
+        <md-data-table-container>
+          <table md-data-table class="md-primary" md-row-select="selected" md-progress="deferred">
+              <thead>
+              <tr>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>Status</th>
+                <th>Employee No</th>
+                <th>Email Address</th>
+              </tr>
+              </thead>
+            <tbody>
+              <tr md-auto-select ng-repeat="user in users | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit">
+                <td>{{user.userID}}</td>
+                <td>{{user.userName}}</td>
+                <td>{{user.employeeStatus}}</td>
+                <td>{{user.employeeNo}}</td>
+                <td>{{user.emailAddress}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </md-data-table-container>
+
+        <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{users.count}}" md-trigger="onpagechange"></md-data-table-pagination>
+      </md-card>
+    </md-content>
+        
+  <!-- Angular Material Dependencies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc1/angular-material.min.js"></script>
+ <script src="http://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.js"></script>  
+</body>
+</html>
